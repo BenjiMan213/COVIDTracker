@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID Data Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .section {
+            flex: 1;
+            min-width: 300px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form {
+            display: grid;
+            gap: 10px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select {
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>COVID Data Management System</h1>
+    
+    <div class="container">
+        <!-- Search Section -->
+        <div class="section">
+            <h2>Search COVID Data</h2>
+            <form id="searchForm">
+                <label for="searchCountyFips">County FIPS Code:</label>
+                <input type="text" id="searchCountyFips" name="county_fips" required>
+                
+                <button type="button" id="searchButton">Search</button>
+            </form>
+            
+            <div class="results" id="searchResults">
+                <!-- Results will be displayed here -->
+            </div>
+        </div>
+        
+        <!-- Insert Section -->
+        <div class="section">
+            <h2>Add New COVID Data</h2>
+            <form id="insertForm">
+                <label for="county">County:</label>
+                <input type="text" id="county" name="county" required>
+                
+                <label for="county_fips">County FIPS Code:</label>
+                <input type="text" id="county_fips" name="county_fips" required>
+                
+                <label for="state">State:</label>
+                <input type="text" id="state" name="state" required>
+                
+                <label for="county_population">County Population:</label>
+                <input type="number" id="county_population" name="county_population" required>
+                
+                <label for="health_service_area_number">Health Service Area Number:</label>
+                <input type="number" id="health_service_area_number" name="health_service_area_number" required>
+                
+                <label for="health_service_area">Health Service Area:</label>
+                <input type="text" id="health_service_area" name="health_service_area" required>
+                
+                <label for="health_service_area_population">Health Service Area Population:</label>
+                <input type="number" id="health_service_area_population" name="health_service_area_population" required>
+                
+                <label for="covid_inpatient_bed_utilization">COVID Inpatient Bed Utilization (%):</label>
+                <input type="number" step="0.01" id="covid_inpatient_bed_utilization" name="covid_inpatient_bed_utilization" required>
+                
+                <label for="covid_hospital_admissions_per_100k">COVID Hospital Admissions per 100k:</label>
+                <input type="number" step="0.1" id="covid_hospital_admissions_per_100k" name="covid_hospital_admissions_per_100k" required>
+                
+                <label for="covid_cases_per_100k">COVID Cases per 100k:</label>
+                <input type="number" step="0.1" id="covid_cases_per_100k" name="covid_cases_per_100k" required>
+                
+                <label for="covid_19_community_level">COVID-19 Community Level:</label>
+                <select id="covid_19_community_level" name="covid_19_community_level" required>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+                
+                <label for="date_updated">Date Updated:</label>
+                <input type="datetime-local" id="date_updated" name="date_updated" required>
+                
+                <button type="button" id="insertButton">Add Data</button>
+            </form>
+            
+            <div class="results" id="insertResults"></div>
+        </div>
+        
+        <!-- Update Section -->
+        <div class="section">
+            <h2>Update COVID Data</h2>
+            <form id="updateForm">
+                <label for="updateCountyFips">County FIPS Code (to update):</label>
+                <input type="text" id="updateCountyFips" name="county_fips" required>
+                
+                <label for="updateCounty">New County Name:</label>
+                <input type="text" id="updateCounty" name="county">
+                
+                <label for="updateState">New State:</label>
+                <input type="text" id="updateState" name="state">
+                
+                <label for="updateCommunityLevel">New COVID-19 Community Level:</label>
+                <select id="updateCommunityLevel" name="covid_19_community_level">
+                    <option value="">-- No Change --</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+                
+                <button type="button" id="updateButton">Update Data</button>
+            </form>
+            
+            <div class="results" id="updateResults"></div>
+        </div>
+        
+        <!-- Delete Section -->
+        <div class="section">
+            <h2>Delete COVID Data</h2>
+            <form id="deleteForm">
+                <label for="deleteCountyFips">County FIPS Code:</label>
+                <input type="text" id="deleteCountyFips" name="county_fips" required>
+                
+                <button type="button" id="deleteButton">Delete Data</button>
+            </form>
+            
+            <div class="results" id="deleteResults"></div>
+        </div>
+    </div>
+
+    <!-- External JavaScript file -->
+    <script src="covid-data-app.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"9388c5932ecb42d9","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.4.0-1-g37f21b1","token":"642255d447fd46dbbcd67f3ff9dbdf59"}' crossorigin="anonymous"></script>
+</body>
+</html>
